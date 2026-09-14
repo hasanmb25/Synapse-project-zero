@@ -343,3 +343,4 @@ GROUP BY u.user_id, u.name;
 
 -- DROP DATABASE synapse_db;
 
+-- select * from assignments;
