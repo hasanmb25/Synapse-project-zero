@@ -23,7 +23,7 @@ CREATE TABLE users (
     INDEX idx_email (email),
     INDEX idx_created_at (created_at)
 );
-
+--
 -- 2. courses (FK: user_id)
 CREATE TABLE courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
