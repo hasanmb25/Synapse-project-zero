@@ -346,4 +346,4 @@ GROUP BY u.user_id, u.name;
 -- select * from assignments;
 
 -- SELECT * FROM COURSES;
-select * FROM files;
+-- select * FROM files;
