@@ -1,16 +1,15 @@
--- ============================================================================
+--
 -- Synapse Learning Management System - Sample Data
--- ============================================================================
+--
 -- This file contains realistic sample data for testing and demonstration.
 -- All foreign key constraints, ENUM values, and unique constraints are respected.
 -- Data is inserted in dependency order to avoid foreign key violations.
 
 USE synapse_db;
 
-
--- ============================================================================
+--
 -- 1. USERS (5 records)
--- ============================================================================
+--
 INSERT INTO users (name, email, password_hash, semester, department, avatar_url, theme_preference, created_at)
 VALUES
 ('Alex Johnson', 'alex.johnson@university.edu', '$2b$10$ExampleHashedPassword1', 'Fall 2024', 'Computer Science', 'https://example.com/avatars/alex.png', 'dark', '2024-01-15 10:30:00'),
@@ -19,9 +18,9 @@ VALUES
 ('Taylor Williams', 'taylor.williams@university.edu', '$2b$10$ExampleHashedPassword4', 'Fall 2024', 'Computer Science', 'https://example.com/avatars/taylor.png', 'light', '2024-01-18 14:45:00'),
 ('Morgan Davis', 'morgan.davis@university.edu', '$2b$10$ExampleHashedPassword5', 'Fall 2024', 'Computer Science', 'https://example.com/avatars/morgan.png', 'dark', '2024-01-19 08:30:00');
 
--- ============================================================================
+--
 -- 2. COURSES (25 records - 5 per user)
--- ============================================================================
+--
 -- User 1: Alex Johnson (courses 1-5)
 INSERT INTO courses (user_id, course_code, course_name, instructor, semester, color_tag, created_at)
 VALUES
@@ -67,9 +66,9 @@ VALUES
 (5, 'CS401', 'Computer Networks', 'Dr. Robert Thompson', 'Fall 2024', '#FFCC00', '2024-01-19 12:30:00'),
 (5, 'MATH301', 'Discrete Mathematics', 'Prof. David Martinez', 'Fall 2024', '#FF33CC', '2024-01-19 13:00:00');
 
--- ============================================================================
+--
 -- 3. TAGS (15 records)
--- ============================================================================
+--
 INSERT INTO tags (user_id, tag_name)
 VALUES
 (1, 'Important'),
@@ -88,9 +87,9 @@ VALUES
 (4, 'Documentation'),
 (5, 'Quick Reference');
 
--- ============================================================================
+--
 -- 4. PROJECTS (8 records)
--- ============================================================================
+--
 INSERT INTO projects (user_id, title, description, status, start_date, end_date)
 VALUES
 (1, 'Chat Application', 'Real-time messaging platform with WebSocket support and database integration', 'in_progress', '2024-02-01', '2024-04-30'),
@@ -102,9 +101,9 @@ VALUES
 (4, 'Network Simulator', 'Simulation of network protocols and routing algorithms', 'in_progress', '2024-01-20', '2024-04-20'),
 (5, 'ML Recommendation Engine', 'Machine learning system for personalized content recommendations', 'not_started', '2024-03-10', '2024-06-30');
 
--- ============================================================================
+--
 -- 5. CONCEPTS (20 records)
--- ============================================================================
+--
 INSERT INTO concepts (user_id, course_id, concept_name, description, created_at)
 VALUES
 (1, 1, 'Hash Tables', 'Data structure providing constant-time average-case lookups using hashing', '2024-01-20 10:00:00'),
@@ -128,9 +127,9 @@ VALUES
 (5, NULL, 'Caching', 'Storage technique for frequently accessed data', '2024-02-07 10:30:00'),
 (1, 2, 'ACID Properties', 'Guarantees for reliable database transactions', '2024-02-08 12:00:00');
 
--- ============================================================================
+--
 -- 6. ACTIVITY LOGS (25 records)
--- ============================================================================
+--
 INSERT INTO activity_logs (user_id, action_type, reference_table, reference_id, timestamp)
 VALUES
 (1, 'created_note', 'notes', 1, '2024-02-01 09:00:00'),
@@ -159,9 +158,9 @@ VALUES
 (5, 'created_summary', 'summaries', 1, '2024-02-05 12:00:00'),
 (1, 'generated_ai_flashcard', 'flashcards', 11, '2024-02-06 09:00:00');
 
--- ============================================================================
+--
 -- 7. NOTES (20 records)
--- ============================================================================
+--
 INSERT INTO notes (course_id, title, content, is_pinned, created_at, updated_at)
 VALUES
 (1, 'Hash Tables: Implementation and Collision Handling', 'Hash tables are fundamental data structures. Key concepts: hashing functions, collision resolution (chaining vs open addressing), load factor, rehashing. Example: Java HashMap uses separate chaining.', 1, '2024-02-01 09:00:00', '2024-02-10 14:30:00'),
@@ -185,9 +184,9 @@ VALUES
 (5, 'Recursive Functions and Backtracking', 'Base case and recursive case, call stack visualization, memoization, backtracking algorithm templates.', 0, '2024-02-19 09:00:00', '2024-02-23 10:00:00'),
 (10, 'Network Security: Encryption and Authentication', 'Symmetric vs asymmetric encryption, digital signatures, SSL/TLS handshake, certificate authorities, key exchange.', 1, '2024-02-20 10:00:00', '2024-02-24 12:00:00');
 
--- ============================================================================
+--
 -- 8. FILES (12 records)
--- ============================================================================
+--
 INSERT INTO files (course_id, file_name, storage_path, file_size_kb, extracted_text, uploaded_at)
 VALUES
 (1, 'DataStructures_Lecture1.pdf', '/uploads/courses/1/DataStructures_Lecture1.pdf', 2048, 'Introduction to data structures, array vs linked list comparison, time complexity analysis', '2024-01-20 08:00:00'),
@@ -203,9 +202,9 @@ VALUES
 (12, 'BTree_Implementation_Guide.pdf', '/uploads/courses/12/BTree_Implementation_Guide.pdf', 2560, 'Insertion algorithm, node splitting, search optimization', '2024-01-30 18:00:00'),
 (13, 'Discrete_Math_Proofs.pdf', '/uploads/courses/13/Discrete_Math_Proofs.pdf', 1792, 'Mathematical proofs, induction examples, set identities', '2024-01-31 19:00:00');
 
--- ============================================================================
+--
 -- 9. ASSIGNMENTS (22 records)
--- ============================================================================
+--
 INSERT INTO assignments (course_id, title, description, deadline, priority, status, progress_percentage, created_at)
 VALUES
 (1, 'Hash Table Implementation', 'Implement a hash table from scratch with collision handling', '2024-02-15 23:59:00', 'high', 'in_progress', 75, '2024-02-01 09:00:00'),
@@ -231,9 +230,9 @@ VALUES
 (6, 'Design Patterns Implementation', 'Implement Factory, Strategy, and Observer patterns', '2024-03-05 23:59:00', 'high', 'in_progress', 70, '2024-02-21 10:00:00'),
 (3, 'Encapsulation Best Practices', 'Refactor code to improve encapsulation', '2024-02-27 23:59:00', 'medium', 'submitted', 100, '2024-02-22 11:00:00');
 
--- ============================================================================
+--
 -- 10. NOTIFICATIONS (20 records)
--- ============================================================================
+--
 INSERT INTO notifications (user_id, assignment_id, message, type, is_read, created_at)
 VALUES
 (1, 1, 'Reminder: Hash Table Implementation due in 2 days', 'reminder', 1, '2024-02-13 09:00:00'),
@@ -257,9 +256,9 @@ VALUES
 (3, 18, 'Reminder: Index Performance Analysis due in 5 days', 'reminder', 0, '2024-03-03 08:00:00'),
 (4, 20, 'Congratulations! You completed Sorting Algorithm Analysis', 'system', 1, '2024-02-22 15:00:00');
 
--- ============================================================================
+--
 -- 11. STUDY SESSIONS (20 records)
--- ============================================================================
+--
 INSERT INTO study_sessions (course_id, session_date, start_time, end_time, duration_minutes, session_type, notes)
 VALUES
 (1, '2024-02-01', '14:00:00', '15:30:00', 90, 'lecture', 'Review of hash table collision resolution, focus on separate chaining'),
@@ -283,9 +282,9 @@ VALUES
 (10, '2024-02-19', '10:00:00', '11:45:00', 105, 'group_study', 'Encryption algorithms and cryptography'),
 (5, '2024-02-20', '14:00:00', '15:30:00', 90, 'practice', 'Solving complex recursion problems');
 
--- ============================================================================
+--
 -- 12. NOTE_TAGS (25 records - junction table)
--- ============================================================================
+--
 INSERT INTO note_tags (note_id, tag_id)
 VALUES
 (1, 1),   -- Hash Tables note + Important tag (user 1)
@@ -314,9 +313,9 @@ VALUES
 (16, 1),  -- Encapsulation note + Important tag (user 4)
 (16, 14); -- Encapsulation note + Documentation tag (user 4)
 
--- ============================================================================
+--
 -- 13. FLASHCARDS (28 records)
--- ============================================================================
+--
 INSERT INTO flashcards (note_id, question, answer, difficulty, card_type, is_ai_generated, created_at)
 VALUES
 (1, 'What is a hash collision?', 'A hash collision occurs when two different keys hash to the same index. Resolved using chaining or open addressing.', 'medium', 'flashcard', 0, '2024-02-01 10:00:00'),
@@ -348,9 +347,9 @@ VALUES
 (19, 'Explain routing in computer networks.', 'Process of selecting paths for traffic between networks. Uses routing tables and protocols like BGP.', 'hard', 'flashcard', 1, '2024-02-27 10:00:00'),
 (4, 'What is the difference between 2NF and 3NF?', '2NF removes partial dependencies on composite keys. 3NF removes transitive dependencies where non-key attributes depend on other non-key attributes.', 'hard', 'quiz', 1, '2024-02-28 10:00:00');
 
--- ============================================================================
+--
 -- 14. SUMMARIES (20 records - one per note)
--- ============================================================================
+--
 INSERT INTO summaries (note_id, summary_text, keywords, model_used, generated_at)
 VALUES
 (1, 'Hash tables provide O(1) average-case lookup using hashing functions. Collisions are managed through chaining or open addressing. Load factor controls when to rehash, typically maintaining ratio below 0.75 for performance.', 'hash table, collision, chaining, load factor, O(1) lookup', 'GPT-4', '2024-02-01 11:00:00'),
@@ -374,9 +373,9 @@ VALUES
 (19, 'Recursion solves problems by breaking into smaller subproblems. Base case stops recursion; recursive case calls itself. Memoization caches results; backtracking explores solution space systematically.', 'recursion, base case, memoization, backtracking, subproblems', 'Claude', '2024-02-19 11:00:00'),
 (20, 'Network security uses encryption (AES, RSA), digital signatures, and authentication. SSL/TLS establishes secure connections; certificate authorities verify trust. Essential for protecting data.', 'encryption, RSA, AES, digital signatures, SSL/TLS, security', 'GPT-4', '2024-02-20 11:00:00');
 
--- ============================================================================
+--
 -- 15. FLASHCARD_REVIEWS (35 records)
--- ============================================================================
+--
 INSERT INTO flashcard_reviews (flashcard_id, review_date, score, next_review_date)
 VALUES
 (1, '2024-02-05', 85, '2024-02-12'),
@@ -415,9 +414,9 @@ VALUES
 (28, '2024-03-04', 67, '2024-03-06'),
 (1, '2024-03-05', 94, '2024-03-12');
 
--- ============================================================================
+--
 -- 16. MILESTONES (12 records)
--- ============================================================================
+--
 INSERT INTO milestones (project_id, title, due_date, status, completed_at)
 VALUES
 (1, 'Architecture Design Complete', '2024-02-15', 'completed', '2024-02-14 15:30:00'),
@@ -433,9 +432,9 @@ VALUES
 (6, 'Initial Implementation', '2024-03-30', 'not_started', NULL),
 (7, 'Protocol Simulation Framework', '2024-03-01', 'in_progress', NULL);
 
--- ============================================================================
+--
 -- 17. CONCEPT_LINKS (20 records - knowledge graph)
--- ============================================================================
+--
 INSERT INTO concept_links (from_concept_id, to_concept_id, relationship_type, created_at)
 VALUES
 (1, 2, 'prerequisite', '2024-02-01 12:00:00'),    -- Hash Tables → BST
@@ -459,9 +458,9 @@ VALUES
 (9, 17, 'related', '2024-02-19 12:00:00'),         -- Set Theory → Synchronization
 (7, 18, 'depends_on', '2024-02-20 12:00:00');      -- TCP/IP → Encryption
 
--- ============================================================================
+--
 -- End of Sample Data
--- ============================================================================
+--
 SELECT 'courses', COUNT(*) FROM courses
 UNION ALL
 SELECT 'tags', COUNT(*) FROM tags
@@ -495,5 +494,5 @@ UNION ALL
 SELECT 'concept_links', COUNT(*) FROM concept_links;
 
 
-
 -- DROP DATABASE IF EXISTS synapse_db;
+
