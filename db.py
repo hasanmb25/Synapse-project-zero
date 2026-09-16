@@ -12,7 +12,7 @@ try:
         user=config.DB_USER,
         password=config.DB_PASSWORD,
         database=config.DB_NAME,
-        port=config.DB_PORT
+        port=int(config.DB_PORT)  # Cast to int to prevent string port crashes
     )
 except mysql.connector.Error as err:
     print(f"Error creating connection pool: {err}")
@@ -24,18 +24,21 @@ def get_connection():
         return db_pool.get_connection()
     return None
 
+def get_db_connection():
+    """Returns a connection from the pool for service-layer callers."""
+    return get_connection()
+
 def fetch_all(query: str, params: tuple = ()):
     """Executes SELECT queries and returns all matching rows as dictionaries."""
     conn = get_connection()
     if not conn:
         return []
-    cursor = conn.cursor(dictionary=True)
     try:
-        cursor.execute(query, params)
-        result = cursor.fetchall()
-        return result
+        # buffered=True prevents unread result state issues
+        with conn.cursor(dictionary=True, buffered=True) as cursor:
+            cursor.execute(query, params)
+            return cursor.fetchall()
     finally:
-        cursor.close()
         conn.close()
 
 def fetch_one(query: str, params: tuple = ()):
@@ -43,13 +46,12 @@ def fetch_one(query: str, params: tuple = ()):
     conn = get_connection()
     if not conn:
         return None
-    cursor = conn.cursor(dictionary=True)
     try:
-        cursor.execute(query, params)
-        result = cursor.fetchone()
-        return result
+        # buffered=True clears remaining result stream so connection can safely return to pool
+        with conn.cursor(dictionary=True, buffered=True) as cursor:
+            cursor.execute(query, params)
+            return cursor.fetchone()
     finally:
-        cursor.close()
         conn.close()
 
 def execute_query(query: str, params: tuple = ()):
@@ -57,15 +59,13 @@ def execute_query(query: str, params: tuple = ()):
     conn = get_connection()
     if not conn:
         return None
-    cursor = conn.cursor()
     try:
-        cursor.execute(query, params)
-        conn.commit()
-        last_id = cursor.lastrowid
-        return last_id
+        with conn.cursor() as cursor:
+            cursor.execute(query, params)
+            conn.commit()
+            return cursor.lastrowid
     except mysql.connector.Error as err:
         conn.rollback()
         raise err
     finally:
-        cursor.close()
         conn.close()
